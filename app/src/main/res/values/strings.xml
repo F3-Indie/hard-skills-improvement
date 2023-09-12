@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">hard-skills-improvement</string>
+
+    <string name="card_mobile_dev_title">Разработка мобильных приложений</string>
+    <string name="card_mobile_dev_description">Руководитель - Евгений Холодов</string>
+
+    <string name="card_mobile_dev_matrix_title">Подготовка к матрице компетенций</string>
+    <string name="card_mobile_dev_matrix_description">Пройдите по следам ваших более опытных коллег</string>
+
+    <string name="card_mobile_dev_interview_title">Подготовка к собеседованиям</string>
+    <string name="card_mobile_dev_interview_description">Надейтесь на лучшее, готовьтесь к худшему</string>
+
+    <string name="card_mobile_dev_trainee_title">Trainee | Теория</string>
+    <string name="card_mobile_dev_trainee_description">Подготовка к прохождению уровня trainee\nКарточек: 3\nВилка: 35.000 – 40.000</string>
+
+    <string name="card_mobile_dev_junior_title">Junior | Теория</string>
+    <string name="card_mobile_dev_junior_description">Подготовка к прохождению уровня junior</string>
+
+    <string name="card_mobile_dev_premiddle_title">Pre middle | Теория</string>
+    <string name="card_mobile_dev_premiddle_description">null</string>
+
+    <string name="card_mobile_dev_middle_title">Middle | Теория</string>
+    <string name="card_mobile_dev_middle_description">null</string>
+</resources>
