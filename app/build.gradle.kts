@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -45,6 +47,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/*"
         }
     }
 }
@@ -70,5 +73,6 @@ dependencies {
     
     implementation(project(":myuikit"))
     implementation(project(":navigation"))
+    implementation(project(":sheetsapi"))
 }
 

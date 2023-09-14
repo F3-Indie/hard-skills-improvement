@@ -17,3 +17,4 @@ rootProject.name = "hard-skills-improvement"
 include(":app")
 include(":myuikit")
 include(":navigation")
+include(":sheetsapi")
