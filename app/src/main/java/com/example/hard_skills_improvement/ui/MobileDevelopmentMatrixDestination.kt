@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.hard_skills_improvement.BaseCardBody
-import com.example.hard_skills_improvement.R
-import com.example.myuikit.BaseRectangleElevatedCard
+import com.example.myuikit.R
+import com.example.myuikit.ui.composables.BaseCardBody
+import com.example.myuikit.ui.composables.BaseRectangleElevatedCard
 
 @Composable
 fun MobileDevelopmentMatrixDestination(contentPaddingValues: PaddingValues) {

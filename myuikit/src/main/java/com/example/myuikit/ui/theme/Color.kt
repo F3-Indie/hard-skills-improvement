@@ -1,4 +1,4 @@
-package com.example.hard_skills_improvement.ui.theme
+package com.example.myuikit.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

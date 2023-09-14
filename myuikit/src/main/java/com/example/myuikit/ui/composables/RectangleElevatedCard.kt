@@ -1,4 +1,4 @@
-package com.example.myuikit
+package com.example.myuikit.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues

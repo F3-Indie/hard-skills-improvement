@@ -8,17 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.hard_skills_improvement.BaseCardBody
-import com.example.hard_skills_improvement.R
-import com.example.hard_skills_improvement.navigation.Destinations
-import com.example.hard_skills_improvement.navigation.MobileDevDestinations
-import com.example.myuikit.BaseRectangleElevatedCard
+import com.example.myuikit.R
+import com.example.myuikit.ui.composables.BaseCardBody
+import com.example.myuikit.ui.composables.BaseRectangleElevatedCard
+import com.example.navigation.MobileDevelopmentDestinations
 
 @Composable
 fun MobileDevelopmentDestination(contentPaddingValues: PaddingValues,  onNavigate : (String)->Unit){
     Column(modifier = Modifier.padding(contentPaddingValues)) {
         BaseRectangleElevatedCard(
-            modifier = Modifier.clickable { onNavigate.invoke(MobileDevDestinations.Matrix.route) },
+            modifier = Modifier.clickable { onNavigate.invoke(MobileDevelopmentDestinations.Matrix.route) },
             contentPaddingValues = PaddingValues(12.dp)) {
             BaseCardBody(
                 title = stringResource(id = R.string.card_mobile_dev_matrix_title),

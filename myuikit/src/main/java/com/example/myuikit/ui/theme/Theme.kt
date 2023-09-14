@@ -1,9 +1,8 @@
-package com.example.hard_skills_improvement.ui.theme
+package com.example.myuikit.ui.theme
 
 import android.app.Activity
 import android.os.Build
 import android.view.WindowManager
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -14,7 +13,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(

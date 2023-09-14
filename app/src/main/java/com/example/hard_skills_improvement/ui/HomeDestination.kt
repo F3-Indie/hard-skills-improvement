@@ -7,10 +7,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.hard_skills_improvement.BaseCardBody
-import com.example.hard_skills_improvement.R
-import com.example.hard_skills_improvement.navigation.Destinations
-import com.example.myuikit.BaseRectangleElevatedCard
+import com.example.myuikit.R
+import com.example.myuikit.ui.composables.BaseCardBody
+import com.example.navigation.Destinations
+import com.example.myuikit.ui.composables.BaseRectangleElevatedCard
 
 @Composable
 fun HomeDestination(contentPaddingValues: PaddingValues, onNavigate : (String)->Unit){
