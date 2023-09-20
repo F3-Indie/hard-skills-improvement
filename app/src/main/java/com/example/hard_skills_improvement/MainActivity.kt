@@ -1,13 +1,11 @@
 package com.example.hard_skills_improvement
 
-import com.example.myuikit.ui.composables.EmptyBackHandler
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -15,12 +13,13 @@ import androidx.navigation.navigation
 import com.example.hard_skills_improvement.ui.HomeDestination
 import com.example.hard_skills_improvement.ui.MobileDevelopmentDestination
 import com.example.hard_skills_improvement.ui.MobileDevelopmentMatrixDestination
+import com.example.myuikit.ui.composables.EmptyBackHandler
 import com.example.myuikit.ui.composables.ScaffoldTopBar
 import com.example.myuikit.ui.theme.HardskillsimprovementTheme
 import com.example.myuikit.ui.theme.LightGray
 import com.example.navigation.Destinations
 import com.example.navigation.MobileDevelopmentDestinations
-import com.example.sheets.Test
+import com.example.sheets.SheetsAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -30,9 +29,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         
         setContent {
-            LaunchedEffect(key1 = Unit){
+            LaunchedEffect(key1 = Unit) {
                 launch(Dispatchers.IO) {
-                    Test().t(this@MainActivity)
+                    val serviceApi = SheetsAPI.build(this@MainActivity)
                 }
             }
             HardskillsimprovementTheme {
@@ -61,8 +60,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                        navigation(startDestination = Destinations.MobileDevelopment.route, route = MobileDevelopmentDestinations.route){
-                            composable(MobileDevelopmentDestinations.Matrix.route){
+                        navigation(
+                            startDestination = Destinations.MobileDevelopment.route,
+                            route = MobileDevelopmentDestinations.route
+                        ) {
+                            composable(MobileDevelopmentDestinations.Matrix.route) {
                                 MobileDevelopmentMatrixDestination(contentPaddingValues)
                             }
                         }
