@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -18,13 +20,21 @@ import com.example.myuikit.ui.theme.HardskillsimprovementTheme
 import com.example.myuikit.ui.theme.LightGray
 import com.example.navigation.Destinations
 import com.example.navigation.MobileDevelopmentDestinations
+import com.example.sheets.Test
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        
         setContent {
+            LaunchedEffect(key1 = Unit){
+                launch(Dispatchers.IO) {
+                    Test().t(this@MainActivity)
+                }
+            }
             HardskillsimprovementTheme {
                 Scaffold(
                     topBar = { ScaffoldTopBar() },

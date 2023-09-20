@@ -73,6 +73,6 @@ dependencies {
     
     implementation(project(":myuikit"))
     implementation(project(":navigation"))
-    implementation(project(":sheetsapi"))
+    implementation(project(":sheets"))
 }
 

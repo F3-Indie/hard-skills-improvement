@@ -14,7 +14,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/myuikit" />
             <option value="$PROJECT_DIR$/navigation" />
-            <option value="$PROJECT_DIR$/sheetsapi" />
+            <option value="$PROJECT_DIR$/sheets" />
           </set>
         </option>
       </GradleProjectSettings>
