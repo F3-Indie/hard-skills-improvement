@@ -2,6 +2,7 @@ package com.example.navigation
 
 enum class Destinations : Destination {
     Home,
+    WebView,
     MobileDevelopment,
     BackendDevelopment;
 

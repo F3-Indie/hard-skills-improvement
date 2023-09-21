@@ -3,8 +3,8 @@ package com.example.sheets
 import android.content.Context
 import com.example.sheets.data.Grade
 import com.example.sheets.data.SheetEntity
-import com.example.sheets.data.SheetRowDto
-import com.example.sheets.data.SheetRowEntity
+import com.example.sheets.data.MatrixDto
+import com.example.sheets.data.MatrixEntity
 import com.example.sheets.data.TraineeCardBlock
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
@@ -14,7 +14,6 @@ import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.gson.Gson
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
 
 typealias ArrList<T> = java.util.ArrayList<T>
 
@@ -59,11 +58,11 @@ class SheetsAPI private constructor(
     fun getByGrade(grade: Grade): SheetEntity {
         val response = service.Spreadsheets().values()
             .get("11m6UFEqUZy4Jmx3AHmDsrxbbj2SBty6mYFXt1LEPLf0", grade.name).execute()
-        return mapValueRangeToSheetEntity(response.values)
+        return mapValueRangeToSheetEntity(grade, response.values)
     }
     
-    private fun mapValueRangeToSheetEntity(valueRange: MutableCollection<Any>): SheetEntity {
-        val rows = mutableListOf<SheetRowEntity>()
+    private fun mapValueRangeToSheetEntity(grade: Grade, valueRange: MutableCollection<Any>): SheetEntity {
+        val rows = mutableListOf<MatrixEntity>()
         
         var cellValues: ArrList<ArrList<Any>> =
             (valueRange.find { it is ArrList<*> } as ArrList<ArrList<Any>>)
@@ -74,14 +73,14 @@ class SheetsAPI private constructor(
             
         }
         
-        return SheetEntity(rows)
+        return SheetEntity(grade.name, rows)
     }
     
-    private fun mapSheetRowDtoToEntity(dto: SheetRowDto): SheetRowEntity {
+    private fun mapSheetRowDtoToEntity(dto: MatrixDto): MatrixEntity {
         with(dto)
         {
-            return SheetRowEntity(
-                cardId = cardId?.toIntOrNull() ?: 0,
+            return MatrixEntity(
+                cardId = cardId ?: "null",
                 cardBlock = /*add mapper*/ TraineeCardBlock.Language,
                 name = name ?: "",
                 value = value?.toIntOrNull() ?: 0,
@@ -91,9 +90,9 @@ class SheetsAPI private constructor(
         }
     }
     
-    private fun mapValuesToRowEntity(values: ArrList<String>): SheetRowDto {
+    private fun mapValuesToRowEntity(values: ArrList<String>): MatrixDto {
         with(values) {
-            return SheetRowDto(
+            return MatrixDto(
                 getOrNull(0),
                 getOrNull(1),
                 getOrNull(2),

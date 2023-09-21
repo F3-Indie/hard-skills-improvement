@@ -1,5 +1,6 @@
 package com.example.sheets.data
 
 data class SheetEntity(
-    val rows: List<SheetRowEntity>
+    val name : String,
+    val rows: List<MatrixEntity>
 )

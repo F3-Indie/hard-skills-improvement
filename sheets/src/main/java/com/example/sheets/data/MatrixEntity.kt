@@ -1,7 +1,7 @@
 package com.example.sheets.data
 
-data class SheetRowEntity(
-    val cardId : Int,
+data class MatrixEntity(
+    val cardId : String,
     val cardBlock : CardBlock,
     val name : String,
     val value : Int?,
@@ -9,7 +9,7 @@ data class SheetRowEntity(
     val controlLink : String
 )
 
-data class SheetRowDto(
+data class MatrixDto(
     val cardId : String?,
     val cardBlock : String?,
     val name : String?,

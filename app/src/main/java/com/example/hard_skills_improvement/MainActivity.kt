@@ -2,41 +2,29 @@ package com.example.hard_skills_improvement
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.coroutineScope
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.hard_skills_improvement.services.AsyncProvider
 import com.example.hard_skills_improvement.ui.HomeDestination
+import com.example.hard_skills_improvement.ui.MatrixCardsLayout
 import com.example.hard_skills_improvement.ui.MobileDevelopmentDestination
 import com.example.hard_skills_improvement.ui.MobileDevelopmentMatrixDestination
-import com.example.myuikit.ui.composables.CollectionElementsLayout
+import com.example.myuikit.ui.composables.WebViewLayout
 import com.example.myuikit.ui.composables.EmptyBackHandler
 import com.example.myuikit.ui.composables.LoadingScreen
 import com.example.myuikit.ui.composables.ScaffoldTopBar
-import com.example.myuikit.ui.data.BaseCardValues
 import com.example.myuikit.ui.theme.HardskillsimprovementTheme
 import com.example.myuikit.ui.theme.LightGray
 import com.example.navigation.Destinations
@@ -56,17 +44,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         
         lifecycle.coroutineScope.launch {
-            val sheetApiProvider = AsyncProvider<SheetsAPI>().setup{
+            val sheetApiProvider = AsyncProvider<SheetsAPI>().setup {
                 SheetsAPI.build(this@MainActivity)
             }
-            with(sheetApiProvider.getValue() as SheetsAPI){
+            with(sheetApiProvider.getValue() as SheetsAPI) {
                 mobileDepartmentViewModel = MobileDepartmentViewModel(this)
                 googleServicesViewModel.setup(this)
             }
         }
         
         setContent {
-           
+            
             val googleServiceState = googleServicesViewModel.collectAsState().value
             
             if (googleServiceState.sheetsAPI == null) {
@@ -106,19 +94,28 @@ class MainActivity : ComponentActivity() {
                                     MobileDevelopmentMatrixDestination(
                                         mobileDepartmentViewModel,
                                         contentPaddingValues
-                                    ){
+                                    ) {
                                         navController.navigate(it)
                                     }
                                 }
-                                composable("${MobileDevelopmentDestinations.MatrixInner.route}/{grade}") {backStackEntry->
+                                composable("${MobileDevelopmentDestinations.MatrixInner.route}/{grade}") { backStackEntry ->
                                     val state = mobileDepartmentViewModel.collectAsState().value
-                                    val argument = backStackEntry.arguments?.getString("grade", "Trainee") ?: "Trainee"
-                                    MatrixLayout(contentPaddingValues, state.matrix.getValue(argument)){
+                                    val argument =
+                                        backStackEntry.arguments?.getString("grade", "Trainee")
+                                            ?: "Trainee"
+                                    MatrixLayout(
+                                        contentPaddingValues,
+                                        state.matrix.getValue(argument)
+                                    ) {
                                         navController.navigate(it)
                                     }
                                 }
-                                composable("webview"){
-                                    testWebview(mobileDepartmentViewModel)
+                                composable("${Destinations.WebView.route}/{id}") { backStackEntry ->
+                                    val id = backStackEntry.arguments?.getString("id", "") ?: ""
+                                    val state = mobileDepartmentViewModel.collectAsState().value
+                                    val url =
+                                        state.matrix.values.firstOrNull { it.rows.firstOrNull { it.cardId == id } != null }?.rows?.firstOrNull { it.cardId == id }?.theoryLink
+                                    WebViewLayout(contentPaddingValues, url ?: "")
                                 }
                             }
                         }
@@ -130,47 +127,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MatrixLayout(contentPaddingValues: PaddingValues ,sheetEntity: SheetEntity, onNavigate : ((String)->Unit)? = null) {
-    Box(modifier = Modifier
-        .systemBarsPadding()
-        .navigationBarsPadding()){
-        CollectionElementsLayout(
-            collection = sheetEntity.rows.map { BaseCardValues(it.name, "null") },
+fun MatrixLayout(
+    contentPaddingValues: PaddingValues,
+    sheetEntity: SheetEntity,
+    onNavigate: ((String) -> Unit)? = null
+) {
+    Box(
+        modifier = Modifier
+            .systemBarsPadding()
+            .navigationBarsPadding()
+    ) {
+        MatrixCardsLayout(
+            collection = sheetEntity.rows,
             contentPaddingValues = contentPaddingValues
-        ){
-            onNavigate?.invoke("webview")
+        ) {
+            onNavigate?.invoke("${Destinations.WebView.route}/${it}")
         }
     }
 }
 
-@Composable
-fun testWebview(mobileDepartmentViewModel: MobileDepartmentViewModel) {
-    
-    val state = mobileDepartmentViewModel.collectAsState().value
-    val url = state.matrix.entries.first().value.rows.first().controlLink
-    
-    /*val mUrl =
-        "https://docs.google.com/document/d/142aSWm9HNK2E6_WTPE2KqHoL9NsMJ_rmuxSCleTXQGg/edit"*/
-    Scaffold {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-                .navigationBarsPadding()
-                .padding(it)
-        ) {
-            AndroidView(modifier = Modifier.align(Alignment.Center), factory = {
-                WebView(it).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-                    webViewClient = WebViewClient()
-                    loadUrl(url)
-                }
-            }, update = {
-                it.loadUrl(url)
-            })
-        }
-    }
-}
