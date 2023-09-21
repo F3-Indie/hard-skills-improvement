@@ -27,11 +27,11 @@ fun MobileDevelopmentMatrixDestination(
         LoadingScreen()
     } else {
         CollectionElementsLayout(
-            collection = state.matrix.keys.zip(state.matrix.values)
+            collection = state.matrixOrderedByGrade
                 .map { BaseCardValues(it.first, "null") },
             contentPaddingValues = contentPaddingValues,
             onNavigate = {
-                onNavigate?.invoke(MobileDevelopmentDestinations.MatrixInner.route)
+                onNavigate?.invoke("${MobileDevelopmentDestinations.MatrixInner.route}/$it")
             }
         )
     }

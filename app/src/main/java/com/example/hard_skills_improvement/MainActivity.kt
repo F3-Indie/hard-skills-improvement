@@ -22,9 +22,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.hard_skills_improvement.services.AsyncProvider
 import com.example.hard_skills_improvement.ui.HomeDestination
@@ -108,9 +110,10 @@ class MainActivity : ComponentActivity() {
                                         navController.navigate(it)
                                     }
                                 }
-                                composable(MobileDevelopmentDestinations.MatrixInner.route) {
+                                composable("${MobileDevelopmentDestinations.MatrixInner.route}/{grade}") {backStackEntry->
                                     val state = mobileDepartmentViewModel.collectAsState().value
-                                    MatrixLayout(contentPaddingValues, state.matrix.entries.first().value){
+                                    val argument = backStackEntry.arguments?.getString("grade", "Trainee") ?: "Trainee"
+                                    MatrixLayout(contentPaddingValues, state.matrix.getValue(argument)){
                                         navController.navigate(it)
                                     }
                                 }

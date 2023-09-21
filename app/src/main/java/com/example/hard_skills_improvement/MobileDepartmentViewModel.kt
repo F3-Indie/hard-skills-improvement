@@ -13,7 +13,9 @@ import java.lang.Exception
 
 data class MobileDepartmentState(
     val matrix : Map<String, SheetEntity>
-)
+){
+    val matrixOrderedByGrade get() = matrix.keys.zip(matrix.values)
+}
 
 class MobileDepartmentViewModel(private val sheetsAPI: SheetsAPI) : ContainerHost<MobileDepartmentState, Unit>, ViewModel() {
     override val container = container<MobileDepartmentState, Unit>(MobileDepartmentState(emptyMap()))
