@@ -12,6 +12,8 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.gson.Gson
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 
 typealias ArrList<T> = java.util.ArrayList<T>
@@ -30,25 +32,27 @@ class SheetsAPI private constructor(
         private const val credentialsPath = "credentials.json"
         private const val configPath = "config.json"
         
-        fun build(context: Context): SheetsAPI = runBlocking {
-            val credential =
-                GoogleCredential.fromStream(context.assets.open(credentialsPath))
-                    .createScoped(SheetsScopes.all())
-            val gson = Gson()
-            val sheetsConfig = gson.fromJson(
-                gson.toJson(context.assets.open(configPath)),
-                SheetsAPIConfig::class.java
-            )
-            
-            val service = Sheets.Builder(
-                AndroidHttp.newCompatibleTransport(),
-                JacksonFactory.getDefaultInstance(),
-                credential
-            )
-                .setApplicationName("hard-skills-improvement")
-                .build()
-            
-            return@runBlocking SheetsAPI(service, sheetsConfig)
+        suspend fun build(context: Context): SheetsAPI = coroutineScope {
+            async{
+                val credential =
+                    GoogleCredential.fromStream(context.assets.open(credentialsPath))
+                        .createScoped(SheetsScopes.all())
+                val gson = Gson()
+                val sheetsConfig = gson.fromJson(
+                    gson.toJson(context.assets.open(configPath)),
+                    SheetsAPIConfig::class.java
+                )
+        
+                val service = Sheets.Builder(
+                    AndroidHttp.newCompatibleTransport(),
+                    JacksonFactory.getDefaultInstance(),
+                    credential
+                )
+                    .setApplicationName("hard-skills-improvement")
+                    .build()
+                
+                SheetsAPI(service, sheetsConfig)
+            }.await()
         }
     }
     

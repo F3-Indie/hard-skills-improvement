@@ -6,6 +6,7 @@ import com.example.sheets.SheetsAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -19,9 +20,18 @@ data class GoogleServicesState(
 class GoogleServicesViewModel : ContainerHost<GoogleServicesState, Unit>, ViewModel() {
     override val container = container<GoogleServicesState, Unit>(GoogleServicesState())
     
-    fun connectServices(context: Context) = intent {
+    /*suspend fun connectServices(context: Context) = intent {
+        coroutineScope {
+            val api = SheetsAPI.build(context)
+            reduce {
+                state.copy(sheetsAPI = api)
+            }
+        }
+    }*/
+    
+    fun setup(sheetsAPI: SheetsAPI) = intent {
         reduce {
-            state.copy(sheetsAPI = SheetsAPI.build(context))
+            state.copy(sheetsAPI = sheetsAPI)
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.navigation
 
 enum class MobileDevelopmentDestinations : Destination {
-    Matrix, Interview;
+    Matrix, Interview, MatrixInner;
 
     companion object : Destination {
         private val groupName: String = this::class.java.name

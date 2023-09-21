@@ -1,5 +1,6 @@
 package com.example.myuikit.ui.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -9,10 +10,10 @@ import androidx.compose.ui.unit.dp
 import com.example.myuikit.ui.data.BaseCardValues
 
 @Composable
-fun CollectionElementsLayout(collection : List<BaseCardValues>, contentPaddingValues : PaddingValues){
+fun CollectionElementsLayout(collection : List<BaseCardValues>, contentPaddingValues : PaddingValues = PaddingValues(), onNavigate : (() -> Unit)? = null){
     Column(modifier = Modifier.padding(contentPaddingValues)) {
         collection.forEach {
-            BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp)) {
+            BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp), modifier = Modifier.clickable{onNavigate?.invoke()}) {
                 BaseCardBody(
                     title = it.title,
                     description = it.description
