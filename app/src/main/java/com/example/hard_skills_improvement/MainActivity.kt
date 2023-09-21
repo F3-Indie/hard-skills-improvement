@@ -25,6 +25,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 class MainActivity : ComponentActivity() {
     
     private val googleServicesViewModel = GoogleServicesViewModel()
+    private lateinit var mobileDepartmentViewModel: MobileDepartmentViewModel
     
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
             if (googleServiceState.sheetsAPI == null) {
                 LoadingScreen()
             } else {
+                mobileDepartmentViewModel = MobileDepartmentViewModel(googleServiceState.sheetsAPI)
                 HardskillsimprovementTheme {
                     Scaffold(
                         topBar = { ScaffoldTopBar() },
@@ -70,7 +72,7 @@ class MainActivity : ComponentActivity() {
                                 route = MobileDevelopmentDestinations.route
                             ) {
                                 composable(MobileDevelopmentDestinations.Matrix.route) {
-                                    MobileDevelopmentMatrixDestination(contentPaddingValues)
+                                    MobileDevelopmentMatrixDestination(mobileDepartmentViewModel, contentPaddingValues)
                                 }
                             }
                         }

@@ -1,5 +1,6 @@
 package com.example.hard_skills_improvement
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.sheets.SheetsAPI
 import com.example.sheets.data.Grade
@@ -8,19 +9,24 @@ import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import java.lang.Exception
 
 data class MobileDepartmentState(
-    val matrix : List<SheetEntity>
+    val matrix : Map<String, SheetEntity>
 )
 
 class MobileDepartmentViewModel(private val sheetsAPI: SheetsAPI) : ContainerHost<MobileDepartmentState, Unit>, ViewModel() {
-    override val container = container<MobileDepartmentState, Unit>(MobileDepartmentState(emptyList()))
+    override val container = container<MobileDepartmentState, Unit>(MobileDepartmentState(emptyMap()))
     
-    fun loadDepartmentMatrix(number: Int) = intent {
+    fun loadDepartmentMatrix() = intent {
         reduce {
-            val loadedData = mutableListOf<SheetEntity>()
+            val loadedData = mutableMapOf<String, SheetEntity>()
             Grade.values().forEach {
-                loadedData.add(sheetsAPI.getByGrade(it))
+                try {
+                    loadedData[it.name] = sheetsAPI.getByGrade(it)
+                }catch (e : Exception){
+                    Log.e("MobileDepartment", "Something wrong with loading $it data")
+                }
             }
     
             state.copy(matrix = loadedData)

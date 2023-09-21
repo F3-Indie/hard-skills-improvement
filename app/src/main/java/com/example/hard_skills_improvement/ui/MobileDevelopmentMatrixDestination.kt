@@ -4,39 +4,35 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.myuikit.R
+import com.example.hard_skills_improvement.MobileDepartmentViewModel
 import com.example.myuikit.ui.composables.BaseCardBody
 import com.example.myuikit.ui.composables.BaseRectangleElevatedCard
+import com.example.myuikit.ui.composables.LoadingScreen
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun MobileDevelopmentMatrixDestination(contentPaddingValues: PaddingValues) {
-    Column(modifier = Modifier.padding(contentPaddingValues)) {
-        BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp)) {
-            BaseCardBody(
-                title = stringResource(id = R.string.card_mobile_dev_trainee_title),
-                description = stringResource(id = R.string.card_mobile_dev_trainee_description)
-            )
-        }
-        BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp)) {
-            BaseCardBody(
-                title = stringResource(id = R.string.card_mobile_dev_junior_title),
-                description = stringResource(id = R.string.card_mobile_dev_junior_description)
-            )
-        }
-        BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp)) {
-            BaseCardBody(
-                title = stringResource(id = R.string.card_mobile_dev_premiddle_title),
-                description = stringResource(id = R.string.card_mobile_dev_premiddle_description)
-            )
-        }
-        BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp)) {
-            BaseCardBody(
-                title = stringResource(id = R.string.card_mobile_dev_middle_title),
-                description = stringResource(id = R.string.card_mobile_dev_middle_description)
-            )
+fun MobileDevelopmentMatrixDestination(viewModel: MobileDepartmentViewModel, contentPaddingValues: PaddingValues) {
+    val state = viewModel.collectAsState().value
+    
+    LaunchedEffect(key1 = Unit){
+        viewModel.loadDepartmentMatrix()
+    }
+    
+    if(state.matrix.isEmpty()){
+        LoadingScreen()
+    }else{
+        Column(modifier = Modifier.padding(contentPaddingValues)) {
+            state.matrix.forEach{
+                BaseRectangleElevatedCard(contentPaddingValues = PaddingValues(12.dp)) {
+                    BaseCardBody(
+                        title = it.key,
+                        description = "null"
+                    )
+                }
+            }
         }
     }
 }
