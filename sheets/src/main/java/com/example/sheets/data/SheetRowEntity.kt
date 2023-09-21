@@ -8,3 +8,12 @@ data class SheetRowEntity(
     val theoryLink : String,
     val controlLink : String
 )
+
+data class SheetRowDto(
+    val cardId : String?,
+    val cardBlock : String?,
+    val name : String?,
+    val value : String?,
+    val theoryLink : String?,
+    val controlLink : String?
+)

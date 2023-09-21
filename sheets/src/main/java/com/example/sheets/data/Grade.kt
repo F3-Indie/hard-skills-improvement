@@ -1,5 +1,5 @@
 package com.example.sheets.data
 
-enum class Grades{
+enum class Grade{
     Trainee, Junior, Middle
 }

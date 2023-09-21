@@ -2,6 +2,7 @@ package com.example.hard_skills_improvement
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
@@ -20,6 +21,7 @@ import com.example.myuikit.ui.theme.LightGray
 import com.example.navigation.Destinations
 import com.example.navigation.MobileDevelopmentDestinations
 import com.example.sheets.SheetsAPI
+import com.example.sheets.data.Grade
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
