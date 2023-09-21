@@ -2,18 +2,25 @@ package com.example.hard_skills_improvement
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -103,7 +110,12 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable(MobileDevelopmentDestinations.MatrixInner.route) {
                                     val state = mobileDepartmentViewModel.collectAsState().value
-                                    MatrixLayout(contentPaddingValues, state.matrix.entries.first().value)
+                                    MatrixLayout(contentPaddingValues, state.matrix.entries.first().value){
+                                        navController.navigate(it)
+                                    }
+                                }
+                                composable("webview"){
+                                    testWebview(mobileDepartmentViewModel)
                                 }
                             }
                         }
@@ -115,13 +127,47 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MatrixLayout(contentPaddingValues: PaddingValues ,sheetEntity: SheetEntity) {
+fun MatrixLayout(contentPaddingValues: PaddingValues ,sheetEntity: SheetEntity, onNavigate : ((String)->Unit)? = null) {
     Box(modifier = Modifier
         .systemBarsPadding()
         .navigationBarsPadding()){
         CollectionElementsLayout(
             collection = sheetEntity.rows.map { BaseCardValues(it.name, "null") },
             contentPaddingValues = contentPaddingValues
-        )
+        ){
+            onNavigate?.invoke("webview")
+        }
+    }
+}
+
+@Composable
+fun testWebview(mobileDepartmentViewModel: MobileDepartmentViewModel) {
+    
+    val state = mobileDepartmentViewModel.collectAsState().value
+    val url = state.matrix.entries.first().value.rows.first().controlLink
+    
+    /*val mUrl =
+        "https://docs.google.com/document/d/142aSWm9HNK2E6_WTPE2KqHoL9NsMJ_rmuxSCleTXQGg/edit"*/
+    Scaffold {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
+                .navigationBarsPadding()
+                .padding(it)
+        ) {
+            AndroidView(modifier = Modifier.align(Alignment.Center), factory = {
+                WebView(it).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    webViewClient = WebViewClient()
+                    loadUrl(url)
+                }
+            }, update = {
+                it.loadUrl(url)
+            })
+        }
     }
 }
