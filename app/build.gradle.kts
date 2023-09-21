@@ -70,6 +70,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     
+    implementation("org.orbit-mvi:orbit-core:6.1.0")
+    implementation("org.orbit-mvi:orbit-viewmodel:6.1.0")
+    implementation("org.orbit-mvi:orbit-compose:6.1.0")
+    
     implementation(project(":myuikit"))
     implementation(project(":navigation"))
     implementation(project(":sheets"))
