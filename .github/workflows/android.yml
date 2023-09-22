@@ -1,0 +1,60 @@
+name: Push/Notify
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-debug-apk:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Check out repository ⭕
+        uses: actions/checkout@v2.3.4
+        with:
+          submodules: true
+      - name: Restore Gradle cache 💡
+        uses: actions/cache@v2.1.4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle-
+      - name: Setup Java 17 🔨
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 17
+      - name: Grant execution permission to Gradle Wrapper 📜
+        run: chmod +x gradlew
+      - name: Build debug APK 💻
+        run: ./gradlew assembleDebug
+      - name: Sign debug APK 📝
+        uses: r0adkll/sign-android-release@v1
+        id: sign-debug-apk
+        with:
+          releaseDirectory: app/build/outputs/apk/debug
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - name: Rename artifact 🗃
+        run: |
+          oldArtifactPath="${{ steps.sign-debug-apk.outputs.signedReleaseFile }}"
+          newArtifactPath="${oldArtifactPath%'-signed.apk'}.apk"
+          echo "ARTIFACT_PATH=$newArtifactPath" >> $GITHUB_ENV
+          mv "$oldArtifactPath" "$newArtifactPath"
+
+      - name: Google Drive upload
+  # You may pin to the exact commit or the version.
+  # uses: willo32/google-drive-upload-action@b3c663e59e75bfaa817d0d8a0e660d25a623fd3e
+        uses: willo32/google-drive-upload-action@v1.1.0
+        with:
+    # Google service account credentials
+          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
+    # Google Drive folder ID to upload the file to
+          parent_folder_id: 18YGYYN4A8pR-MQGHWgjZTzr89dyF083y
+    # Local path to the file to upload
+          target: ${{ env.ARTIFACT_PATH }}
