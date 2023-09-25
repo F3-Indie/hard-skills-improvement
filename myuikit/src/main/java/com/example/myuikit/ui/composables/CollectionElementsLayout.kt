@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myuikit.ui.data.BaseCardValues
-import com.example.sheets.data.MatrixEntity
 
 @Composable
 fun CollectionElementsLayout(collection : List<BaseCardValues>, contentPaddingValues : PaddingValues = PaddingValues(), onNavigate : ((String) -> Unit)? = null){

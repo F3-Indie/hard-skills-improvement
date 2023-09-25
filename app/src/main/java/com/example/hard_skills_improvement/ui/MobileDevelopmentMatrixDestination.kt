@@ -15,7 +15,7 @@ import com.example.myuikit.ui.composables.BaseCardBody
 import com.example.myuikit.ui.composables.BaseRectangleElevatedCard
 import com.example.myuikit.ui.composables.LoadingScreen
 import com.example.navigation.MobileDevelopmentDestinations
-import com.example.sheets.data.SheetEntity
+import com.example.sheets.domain.entities.SheetEntity
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable

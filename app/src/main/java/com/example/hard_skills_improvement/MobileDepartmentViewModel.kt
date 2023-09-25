@@ -3,8 +3,8 @@ package com.example.hard_skills_improvement
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.sheets.SheetsAPI
-import com.example.sheets.data.Grade
-import com.example.sheets.data.SheetEntity
+import com.example.sheets.domain.entities.Grade
+import com.example.sheets.domain.entities.SheetEntity
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce

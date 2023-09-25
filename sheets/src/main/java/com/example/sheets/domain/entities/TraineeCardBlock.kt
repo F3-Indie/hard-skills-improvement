@@ -1,4 +1,4 @@
-package com.example.sheets.data
+package com.example.sheets.domain.entities
 
 enum class TraineeCardBlock : CardBlock {
     Tools, Language, SoftSkills;

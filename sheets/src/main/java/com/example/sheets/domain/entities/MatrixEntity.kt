@@ -1,4 +1,4 @@
-package com.example.sheets.data
+package com.example.sheets.domain.entities
 
 data class MatrixEntity(
     val cardId : String,

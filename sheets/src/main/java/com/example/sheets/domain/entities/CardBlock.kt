@@ -1,4 +1,4 @@
-package com.example.sheets.data
+package com.example.sheets.domain.entities
 
 interface CardBlock{
     val title : String

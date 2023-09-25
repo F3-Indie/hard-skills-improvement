@@ -30,7 +30,7 @@ import com.example.myuikit.ui.theme.LightGray
 import com.example.navigation.Destinations
 import com.example.navigation.MobileDevelopmentDestinations
 import com.example.sheets.SheetsAPI
-import com.example.sheets.data.SheetEntity
+import com.example.sheets.domain.entities.SheetEntity
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 
@@ -115,7 +115,7 @@ class MainActivity : ComponentActivity() {
                                     val state = mobileDepartmentViewModel.collectAsState().value
                                     val url =
                                         state.matrix.values.firstOrNull { it.rows.firstOrNull { it.cardId == id } != null }?.rows?.firstOrNull { it.cardId == id }?.theoryLink
-                                    WebViewLayout(contentPaddingValues, url ?: "")
+                                    WebViewLayout(url ?: "")
                                 }
                             }
                         }

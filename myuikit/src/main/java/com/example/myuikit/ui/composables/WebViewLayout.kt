@@ -5,11 +5,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,14 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
-fun WebViewLayout(contentPaddingValues: PaddingValues, url: String) {
-    var loadingState = remember { mutableStateOf(true) }
+fun WebViewLayout(url: String) {
+    val loadingState = remember { mutableStateOf(true) }
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
-            .navigationBarsPadding()
-            .padding(contentPaddingValues)
+
     ) {
         
         AndroidView(factory = {

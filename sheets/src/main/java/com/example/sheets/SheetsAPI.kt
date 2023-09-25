@@ -1,11 +1,11 @@
 package com.example.sheets
 
 import android.content.Context
-import com.example.sheets.data.Grade
-import com.example.sheets.data.SheetEntity
-import com.example.sheets.data.MatrixDto
-import com.example.sheets.data.MatrixEntity
-import com.example.sheets.data.TraineeCardBlock
+import com.example.sheets.domain.entities.Grade
+import com.example.sheets.domain.entities.SheetEntity
+import com.example.sheets.domain.entities.MatrixDto
+import com.example.sheets.domain.entities.MatrixEntity
+import com.example.sheets.domain.entities.TraineeCardBlock
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.json.jackson2.JacksonFactory
