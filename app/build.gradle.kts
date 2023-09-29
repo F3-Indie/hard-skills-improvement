@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.bundles.composeCore)
     implementation(libs.bundles.orbit)
     implementation(libs.compose.navigation)
+    implementation(libs.bundles.koin)
 
     implementation(project(":myuikit"))
     implementation(project(":navigation"))

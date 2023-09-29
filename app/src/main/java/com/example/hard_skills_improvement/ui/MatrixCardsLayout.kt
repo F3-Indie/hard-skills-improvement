@@ -16,7 +16,7 @@ import com.example.sheets.domain.entities.MatrixEntity
 @Composable
 fun MatrixCardsLayout(
     contentPaddingValues: PaddingValues,
-    collection: List<MatrixEntity>,
+    collection: Collection<MatrixEntity>,
     onNavigate: ((String) -> Unit)?
 ) {
     Column(

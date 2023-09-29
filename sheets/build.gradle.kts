@@ -41,6 +41,7 @@ dependencies {
     
     implementation(libs.bundles.ktxCore)
     implementation(libs.guava)
+    implementation(libs.bundles.koin)
     
     implementation(libs.google.api) {
         exclude(group = "com.google.guava", module = "listenablefuture")

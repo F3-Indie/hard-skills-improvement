@@ -15,25 +15,27 @@ import com.example.myuikit.ui.composables.BaseCardBody
 import com.example.myuikit.ui.composables.BaseRectangleElevatedCard
 import com.example.myuikit.ui.composables.LoadingScreen
 import com.example.navigation.MobileDevelopmentDestinations
-import com.example.sheets.domain.entities.SheetEntity
+import com.example.sheets.domain.entities.MatrixOrderedByGradeEntity
+import org.koin.compose.koinInject
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun MobileDevelopmentMatrixDestination(
-    viewModel: MobileDepartmentViewModel,
+fun MobileDepartmentMatrixScreen(
     contentPaddingValues: PaddingValues,
-    onNavigate: ((String) -> Unit)? = null
+    viewModel: MobileDepartmentViewModel = koinInject(),
+    onNavigate: ((String) -> Unit)? = null,
 ) {
-    val state = viewModel.collectAsState().value
-    
-    LaunchedEffect(key1 = Unit) {
+
+    LaunchedEffect(key1 = Unit){
         viewModel.loadDepartmentMatrix()
     }
+
+    val state = viewModel.collectAsState().value
     
     if (state.matrix.isEmpty()) {
         LoadingScreen()
     } else {
-        MatrixByGradeLayout(
+        MobileDepartmentMatrixLayout(
             collection = state.matrixOrderedByGrade.map { it.second },
             contentPaddingValues = contentPaddingValues,
             onNavigate = {
@@ -44,9 +46,9 @@ fun MobileDevelopmentMatrixDestination(
 }
 
 @Composable
-fun MatrixByGradeLayout(
+fun MobileDepartmentMatrixLayout(
     contentPaddingValues: PaddingValues,
-    collection: List<SheetEntity>,
+    collection: List<MatrixOrderedByGradeEntity>,
     onNavigate: ((String) -> Unit)?
 ) {
     Column(
