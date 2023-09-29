@@ -4,16 +4,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.sheets"
+    namespace = "com.example.data"
     compileSdk = 33
-    
+
     defaultConfig {
         minSdk = 24
-        
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-    
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -30,25 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    packaging {
-        resources {
-            excludes += "META-INF/*"
-        }
-    }
 }
 
 dependencies {
-    
-    implementation(dependencyCatalog.bundles.ktxCommons)
-    implementation(dependencyCatalog.guava)
-    
-    implementation(dependencyCatalog.googleApi) {
-        exclude(group = "com.google.guava", module = "listenablefuture")
-    }
-    implementation(dependencyCatalog.googleSheets) {
-        exclude(group = "com.google.guava", module = "listenablefuture")
-    }
-    
-    implementation(dependencyCatalog.gson)
-    
+
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 }

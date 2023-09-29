@@ -4,16 +4,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.sheets"
-    compileSdk = 33
-    
+    namespace = "com.example.composedependencies"
+    compileSdk = 34
+
     defaultConfig {
         minSdk = 24
-        
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-    
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -30,25 +30,21 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    packaging {
-        resources {
-            excludes += "META-INF/*"
-        }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 }
 
 dependencies {
-    
-    implementation(dependencyCatalog.bundles.ktxCommons)
-    implementation(dependencyCatalog.guava)
-    
-    implementation(dependencyCatalog.googleApi) {
-        exclude(group = "com.google.guava", module = "listenablefuture")
-    }
-    implementation(dependencyCatalog.googleSheets) {
-        exclude(group = "com.google.guava", module = "listenablefuture")
-    }
-    
-    implementation(dependencyCatalog.gson)
-    
+
+    api(composeCatalog.activityCompose)
+
+    api(composeCatalog.ui)
+    api(composeCatalog.uiGraphics)
+    api(composeCatalog.toolingPreview)
+    api(composeCatalog.material3)
+
 }
