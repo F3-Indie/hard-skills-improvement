@@ -30,8 +30,10 @@ android {
 }
 
 dependencies {
-  implementation(dependencyCatalog.bundles.ktxCommons)
-  implementation(dependencyCatalog.navigation)
-  implementation(dependencyCatalog.bundles.composeCommons)
-  implementation(dependencyCatalog.navigationCompose)
+  
+  implementation(libs.bundles.ktxCore)
+  implementation(libs.bundles.composeCore)
+
+  implementation(libs.navigation)
+  implementation(libs.compose.navigation)
 }

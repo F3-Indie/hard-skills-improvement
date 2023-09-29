@@ -53,11 +53,10 @@ android {
 
 dependencies {
 
-    implementation(dependencyCatalog.bundles.ktxCommons)
-    implementation(dependencyCatalog.bundles.composeCommons)
-    implementation(dependencyCatalog.bundles.orbit)
-
-    implementation(dependencyCatalog.navigationCompose)
+    implementation(libs.bundles.ktxCore)
+    implementation(libs.bundles.composeCore)
+    implementation(libs.bundles.orbit)
+    implementation(libs.compose.navigation)
 
     implementation(project(":myuikit"))
     implementation(project(":navigation"))

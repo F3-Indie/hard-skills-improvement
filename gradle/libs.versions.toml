@@ -1,0 +1,70 @@
+[versions]
+
+orbit-version = "6.1.0"
+
+ktx-core-version = "1.1.2"
+ktx-lifecycle-version = "2.6.2"
+appcompat-version = "1.6.1"
+navigation-version = "2.7.3"
+
+compose-core-version = "1.5.2"
+compose-material-version = "1.1.2"
+compose-activity-version = "1.7.2"
+
+guava-version = "28.2-android"
+google-api-version = "1.23.0"
+google-sheets-api-version = "v4-rev612-1.25.0"
+
+gson-version = "2.10.1"
+
+[libraries]
+
+orbit-core = {module = "org.orbit-mvi:orbit-core", version.ref = "orbit-version"}
+orbit-viewmodel = {module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit-version"}
+orbit-compose = {module = "org.orbit-mvi:orbit-compose", version.ref = "orbit-version"}
+
+ktx-core = {module = "androidx.core:core-ktx", version.ref = "ktx-core-version"}
+ktx-lifecycle = {module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "ktx-lifecycle-version"}
+appcompat = {module = "androidx.appcompat:appcompat", version.ref = "appcompat-version"}
+navigation = {module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation-version"}
+
+compose-ui = {module = "androidx.compose.ui:ui", version.ref = "compose-core-version"}
+compose-ui-graphics = {module = "androidx.compose.ui:ui-graphics", version.ref = "compose-core-version"}
+compose-tooling-preview = {module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose-core-version"}
+compose-material3 = {module = "androidx.compose.material3:material3", version.ref = "compose-material-version"}
+compose-activity = {module = "androidx.activity:activity-compose", version.ref = "compose-activity-version"}
+compose-navigation = {module = "androidx.navigation:navigation-compose", version.ref = "navigation-version"}
+
+guava = {module = "com.google.guava:guava", version.ref = "guava-version"}
+google-api = {module = "com.google.api-client:google-api-client-android", version.ref = "google-api-version"}
+google-sheetsApi = {module = "com.google.apis:google-api-services-sheets", version.ref = "google-sheets-api-version"}
+
+gson = {module = "com.google.code.gson:gson", version.ref = "gson-version"}
+
+[bundles]
+
+orbit = [
+    "orbit-core",
+    "orbit-viewmodel",
+    "orbit-compose"
+]
+
+ktxCore = [
+    "ktx-core",
+    "ktx-lifecycle",
+    "appcompat"
+]
+
+composeCore = [
+    "compose-ui",
+    "compose-ui-graphics",
+    "compose-tooling-preview",
+    "compose-material3",
+    "compose-activity",
+    "compose-navigation"
+]
+
+google-apis-core = [
+    "guava",
+    "google-api"
+]

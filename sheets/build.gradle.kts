@@ -39,16 +39,16 @@ android {
 
 dependencies {
     
-    implementation(dependencyCatalog.bundles.ktxCommons)
-    implementation(dependencyCatalog.guava)
+    implementation(libs.bundles.ktxCore)
+    implementation(libs.guava)
     
-    implementation(dependencyCatalog.googleApi) {
+    implementation(libs.google.api) {
         exclude(group = "com.google.guava", module = "listenablefuture")
     }
-    implementation(dependencyCatalog.googleSheets) {
+    implementation(libs.google.sheetsApi) {
         exclude(group = "com.google.guava", module = "listenablefuture")
     }
     
-    implementation(dependencyCatalog.gson)
+    implementation(libs.gson)
     
 }

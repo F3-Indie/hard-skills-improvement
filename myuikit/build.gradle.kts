@@ -39,7 +39,8 @@ android {
 }
 
 dependencies {
-    implementation(dependencyCatalog.bundles.ktxCommons)
-    implementation(dependencyCatalog.bundles.composeCommons)
+
+    implementation(libs.bundles.ktxCore)
+    implementation(libs.bundles.composeCore)
     implementation(project(":sheets"))
 }
