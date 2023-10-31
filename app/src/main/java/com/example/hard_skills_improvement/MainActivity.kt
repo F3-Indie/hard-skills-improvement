@@ -12,6 +12,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import com.example.hard_skills_improvement.koinModule as coreKoinModule
 import com.example.sheets.koin.koinModule as sheetKoinModule
+//TODO добавил строчку
 
 class MainActivity : ComponentActivity() {
 
